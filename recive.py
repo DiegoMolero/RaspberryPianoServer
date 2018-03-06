@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # To test it with netcat, start the script and execute:
 # 
 #    echo "Hello, cat." | ncat.exe 127.0.0.1 12345
