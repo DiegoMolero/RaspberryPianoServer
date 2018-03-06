@@ -1,0 +1,1 @@
+amidi --port="hw:1,0,0" -d
