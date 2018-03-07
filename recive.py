@@ -19,7 +19,6 @@ def main():
 		PORT = int(sys.argv[2])
 		print HOST
 		print PORT
-   except getopt.GetoptError:
       
       
 	  
