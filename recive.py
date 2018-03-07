@@ -12,15 +12,16 @@ def main():
 	inputfile = ''
 	outputfile = ''
 	try:
-		if(len(sys.argv) != 2):
-			raise Exception()
+		if(len(sys.argv) != 3):
+			print 'Sintex error: test.py <host> <port>'
+			sys.exit(2)
 		HOST = str(sys.argv[1])
 		PORT = int(sys.argv[2])
 		print HOST
 		print PORT
    except getopt.GetoptError:
-      print 'Sintex error: test.py <host> <port>'
-      sys.exit(2)
+      
+      
 	  
 if __name__ == "__main__":
 	main()
