@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # To test it with netcat, start the script and execute:
-# 
+#
 #    echo "Hello, cat." | ncat.exe 127.0.0.1 12345
 #
 import sys,socket
@@ -20,8 +20,10 @@ def main(argv):
         sys.exit(2)
     host = str(argv[1])
     port = int(argv[2])
+    print ("Input port: "+str(port))
     for line in incoming(host, port):
         print (line)
-        
+
 if __name__== "__main__":
     main(sys.argv)
+
