@@ -1,6 +1,5 @@
 #!/bin/bash
 OUTPUT="$(amidi -l)" || sudo apt-get install amidi
-echo "Output: ${OUTPUT}"
 if [[ $OUTPUT = *"MIDI"* ]]; then
 	echo "$OUTPUT"
 else

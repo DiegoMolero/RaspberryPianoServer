@@ -3,11 +3,26 @@
 # 
 #    echo "Hello, cat." | ncat.exe 127.0.0.1 12345
 #
-import socket
+import sys,socket
 
 HOST = 'localhost'   # use '' to expose to all networks
 PORT = 12345
 
+def main(argv):
+   inputfile = ''
+   outputfile = ''
+   try:
+		if(len(sys.argv) != 2):
+			raise Exception()
+		HOST = str(argv[1])
+		PORT = int(argv[2])
+		print HOST
+		print PORT
+   except getopt.GetoptError:
+      print 'Sintex error: test.py <host> <port>'
+      sys.exit(2)
+
+'''
 def incoming(host, port):
   """Open specified port and return file-like object"""
   sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -24,3 +39,4 @@ def incoming(host, port):
 
 for line in incoming(HOST, PORT):
   print line,
+'''
