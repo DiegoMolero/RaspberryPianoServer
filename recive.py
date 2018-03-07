@@ -8,20 +8,22 @@ import sys,socket
 HOST = 'localhost'   # use '' to expose to all networks
 PORT = 12345
 
-def main(argv):
-   inputfile = ''
-   outputfile = ''
-   try:
+def main():
+	inputfile = ''
+	outputfile = ''
+	try:
 		if(len(sys.argv) != 2):
 			raise Exception()
-		HOST = str(argv[1])
-		PORT = int(argv[2])
+		HOST = str(sys.argv[1])
+		PORT = int(sys.argv[2])
 		print HOST
 		print PORT
    except getopt.GetoptError:
       print 'Sintex error: test.py <host> <port>'
       sys.exit(2)
-
+	  
+if __name__ == "__main__":
+	main()
 '''
 def incoming(host, port):
   """Open specified port and return file-like object"""
