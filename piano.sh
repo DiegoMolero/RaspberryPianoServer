@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "Hello" | python ./pipes.py
+OUTPUT="$(amidi -l)" || sudo apt-get install amidi
+echo "${OUTPUT}"

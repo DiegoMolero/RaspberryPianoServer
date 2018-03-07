@@ -1,1 +1,2 @@
-amidi --port="hw:1,0,0" -d
+amidi -l 		to show the inputs
+amidi --port="hw:1,0,0" -d	to connect with the port
