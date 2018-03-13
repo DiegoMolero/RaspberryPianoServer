@@ -10,10 +10,10 @@ bluetooth.advertise_service(server_sock, "helloService",
                      profiles=[bluetooth.SERIAL_PORT_PROFILE])
 
 client_sock, address = server_sock.accept()
-print "Accepted connection from ",address
+print ("Accepted connection from "+ str(address))
 
 data = client_sock.recv(1024)
-print "received [%s]" % data
+print ("received "+ str(data))
 
 client_sock.close()
 server_sock.close()
