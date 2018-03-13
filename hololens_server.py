@@ -1,9 +1,8 @@
 #!/usr/bin/env python
  
 import socket
-
-
-TCP_IP = '172.19.248.171'
+TCP_IP = ''
+#TCP_IP = socket.gethostbyname(socket.gethostname())
 
 TCP_PORT = 8000
 BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
@@ -16,10 +15,10 @@ print(s.getsockname()[1]) #PORT
 
 conn, addr = s.accept()
 print ('Connection address:'+ str(addr))
-conn.send(b'hello')
+conn.send('hello'.encode())
 while 1:
 	data = conn.recv(BUFFER_SIZE)
 	if not data: break
-	print ("received data:"+ str(data))
+	print ("received data: "+ str(data.decode()))
 	conn.send(data)  # echo
 conn.close()
