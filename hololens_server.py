@@ -10,8 +10,9 @@ BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((TCP_IP, TCP_PORT))
 s.listen(1)
-print(s.getsockname()[0]) #HOST
-print(s.getsockname()[1]) #PORT
+print("Listening from...")
+print("IP:\t"+socket.gethostbyname(socket.gethostname())) #HOST
+print("PORT:\t"+str(s.getsockname()[1])) #PORT
 
 conn, addr = s.accept()
 print ('Connection address:'+ str(addr))
