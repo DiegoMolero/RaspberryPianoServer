@@ -3,8 +3,8 @@
 import sys,time
 from threading import Thread
 from socket import *
-TCP_IP = ''
-#TCP_IP = gethostbyname(gethostname())
+#TCP_IP = ''
+TCP_IP = gethostbyname(gethostname())
 TOKEN="lsnu3kwbf"
 UDP_PORT = 8001
 TCP_PORT = 8000
