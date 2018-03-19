@@ -8,7 +8,7 @@ if [[ $OUTPUT=*"MIDI"* ]]; then
         sleep .5
         amidi --port="hw:1,0,0" -d | nc localhost $LOCAL_PORT &
         P2=$! &
-		python qr_show.py $IP_ADDR
+		python qr_show.py $IP_ADDR &
         wait $P1 $P2
 else
         echo "Connect the MIDI wire from the piano to the Raspberry Pi"
