@@ -40,7 +40,7 @@ def startUDP(port):
 	client, addr = sock.accept()
 	while 1:
 		data = client.recv(BUFFER_SIZE)
-		print(data)
+		sendData(data)
 	
 
 def main(argv):
@@ -52,6 +52,9 @@ def main(argv):
 	udp_server.daemon = False
 	udp_server.start()
 	sleep(1)
+	tcp_server = Thread(target=setupTCP)
+	tcp_server.daemon = False
+	tcp_server.start()
 
 if __name__== "__main__":
     main(sys.argv)
