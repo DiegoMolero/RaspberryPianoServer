@@ -22,6 +22,7 @@ def setupTCP():
 	print("PORT:\t"+str(s.getsockname()[1])) #PORT
 	global conn,base
 	conn, addr = s.accept()
+	conn.send()  # echo
 	print ('Connection address:'+ str(addr))
 	while 1:
 		base = conn.recv(BUFFER_SIZE)
