@@ -11,7 +11,7 @@ BUFFER_SIZE = 16  # Normally 1024, but we want fast response
 # /-- Hololens Server Network ---
 def sendData(data):
 	if 'conn' in globals():
-		conn.send(base+data.encode())  # echo
+		conn.send(data.encode())  # echo
 		print('Data send: '+data)
 def setupTCP():
 	print("Starting TCP Server")
