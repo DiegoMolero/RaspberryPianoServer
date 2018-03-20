@@ -34,7 +34,7 @@ def startUDP(port):
 	while 1:
 		data_piano = client.recv(BUFFER_SIZE)
 		if 'hololens_ip' in globals():
-			print("Sending "+data_piano+" to:"+hololens_ip+":"+UDP_PORT_SENDER)
+			print("Sending "+data_piano+" to:"+str(hololens_ip)+":"+str(UDP_PORT_SENDER))
 			sock_sender.sendto(data_piano.encode(), (hololens_ip, UDP_PORT_SENDER))
 
 def main(argv):
