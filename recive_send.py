@@ -9,10 +9,10 @@ TCP_PORT = 8000
 BUFFER_SIZE = 16  # Normally 1024, but we want fast response
 
 # /-- Hololens Server Network ---
-def sendData(data):
+def sendData(data_piano):
 	if 'conn' in globals():
-		conn.send(data.encode())  # echo
-		print('Data send: '+data)
+		conn.send(data_piano.encode())  # echo
+		print('Data sent: '+data_piano)
 def setupTCP():
 	print("Starting TCP Server")
 	s = socket(AF_INET, SOCK_STREAM)
@@ -38,8 +38,9 @@ def startUDP(port):
 	sock.listen(0)   # do not queue connections
 	client, addr = sock.accept()
 	while 1:
-		data = client.recv(BUFFER_SIZE)
-		sendData(data)
+		data_piano = client.recv(BUFFER_SIZE)
+		print("Local data piano recieved:"+data_piano)
+		sendData(data_piano)
 	
 
 def main(argv):
