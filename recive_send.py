@@ -6,7 +6,7 @@ from socket import *
 from time import *
 
 TCP_PORT = 8000
-BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
+BUFFER_SIZE = 16  # Normally 1024, but we want fast response
 
 # /-- Hololens Server Network ---
 def sendData(data):
