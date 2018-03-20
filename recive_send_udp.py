@@ -18,7 +18,7 @@ def UDPListener():
 	global hololens_ip
 	while True:
 		data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-		hololens_ip = str(addr[1])
+		hololens_ip = str(addr[0])
 		print (str(data.decode())+"From:"+hololens_ip)
 		
 
@@ -33,9 +33,8 @@ def startUDP(port):
 	client, addr = sock.accept()
 	while 1:
 		data_piano = client.recv(BUFFER_SIZE)
-		print("Local data piano recieved:"+data_piano)
 		if 'hololens_ip' in globals():
-			sendData(data_piano)
+			print("Sending "+data_piano+" to:"+hololens_ip":"+UDP_PORT_SENDER)
 			sock_sender.sendto(data_piano.encode(), (hololens_ip, UDP_PORT_SENDER))
 
 def main(argv):
