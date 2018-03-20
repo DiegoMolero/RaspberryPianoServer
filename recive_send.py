@@ -23,7 +23,6 @@ def setupTCP():
 	global conn,base
 	conn, addr = s.accept()
 	print ('Connection address:'+ str(addr))
-	conn.send('hello'.encode())
 	while 1:
 		base = conn.recv(BUFFER_SIZE)
 		if not base: break
