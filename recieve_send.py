@@ -22,7 +22,6 @@ def setupTCP():
 	print("PORT:\t"+str(s.getsockname()[1])) #PORT
 	global conn,base
 	conn, addr = s.accept()
-	conn.send()  # echo
 	print ('Connection address:'+ str(addr))
 	while 1:
 		base = conn.recv(BUFFER_SIZE)
@@ -40,9 +39,9 @@ def startUDP(port):
 	client, addr = sock.accept()
 	while 1:
 		data_piano = client.recv(BUFFER_SIZE)
-		data_send = data_piano.replace('\n','')
+		data_send = data_piano.replace('\n','') # Removes the first line break
 		print("Local data piano recieved:"+data_send)
-		sendData(data_send)
+		sendData(data_send+'\n') # The line break signal the final of the message
 	
 
 def main(argv):
