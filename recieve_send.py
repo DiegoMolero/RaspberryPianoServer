@@ -40,8 +40,9 @@ def startUDP(port):
 	client, addr = sock.accept()
 	while 1:
 		data_piano = client.recv(BUFFER_SIZE)
-		print("Local data piano recieved:"+data_piano)
-		sendData(data_piano)
+		data_send = data_piano.replace('\n','')
+		print("Local data piano recieved:"+data_send)
+		sendData(data_send)
 	
 
 def main(argv):

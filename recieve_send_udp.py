@@ -18,7 +18,7 @@ def UDPListener():
 	global hololens_ip
 	while True:
 		data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-		hololens_ip = str(data)
+		hololens_ip = str(data) #Hololens sends his IP but it should be tested with the emulator
 		print (str(data.decode())+"From:"+hololens_ip)
 		
 
