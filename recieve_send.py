@@ -48,7 +48,6 @@ def main(argv):
 	if(len(argv) != 2):
 		print ('Sintex error, this program needs 1 arguments: recieve_send.py <port>')
 		sys.exit(2)
-	TCPconnection = False
 	udp_server = Thread(target=startUDP,args=(argv[1],))
 	udp_server.daemon = False
 	udp_server.start()
