@@ -68,21 +68,17 @@ def startUDP(port):
     sock.bind(('localhost', int(port)))
     sock.listen(0)   # do not queue connections
     client, addr = sock.accept()
-    connection = True
     while 1:
         data_piano = client.recv(BUFFER_SIZE)
         data_send = data_piano.replace('\n','') # Removes the first line break
         print("Local data piano recieved:"+data_send)
         sendData(data_send+'\n') # The line break signal the final of the message
-        update_label_Data(data_send)
 
 def main(argv):
 	if (len(argv) != 3):
 		print('Sintex error, this program needs 2 arguments: main.py <ip> <port>')
 		sys.exit(2)
     #INITIALIZE UDP SERVER - PIANO
-	global connection
-	connection = False
 	udp_server = Thread(target=startUDP, args=(argv[2],))
 	udp_server.daemon = False
 	udp_server.start()
@@ -119,9 +115,6 @@ def init_GUI(code):
     info_label_piano.grid(row=1,column=1)
     info_label_server.grid(row=2, column=1)
     info_label_data.grid(row=3, column=1)
-    if connection == True:
-        pianoUDP_Connected()
-    else: pianoUDP_Disconnected()
     serverTCP_Disconnected()
     drawQR(code)
 
