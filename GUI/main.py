@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import sys,pyqrcode,png
-if sys.version_info[0] < 3:
-	from tkinter import *
-else:
+try:
+    from Tkinter import *
+except ImportError:
 	from tkinter import *
 from threading import Thread
 from socket import *
@@ -11,11 +11,23 @@ from time import *
 
 TCP_PORT = 8000
 BUFFER_SIZE = 16  # Normally 1024, but fast response is needed
-def doSomething(event):
-    print ("bye")
-    sleep(0.5)
-    root.destroy()
+def update_label_Info(msg):
+    label_0.configure(text=msg)
 
+def update_label_Data(msg):
+    info_label_data.configure(text=msg)
+
+def serverTCP_Connected():
+    info_label_server.configure(text="Connected",fg = "green")
+
+def serverTCP_Disconnected():
+    info_label_server.configure(text="Disconnected", fg="red")
+
+def pianoUDP_Connected():
+    info_label_piano.configure(text="Connected", fg="green")
+
+def pianoUDP_Disconnected():
+    info_label_piano.configure(text="Disconnected", fg="red")
 
 def drawQR(code):
     url = pyqrcode.create(code)
@@ -56,7 +68,7 @@ def startUDP(port):
     sock.bind(('localhost', int(port)))
     sock.listen(0)   # do not queue connections
     client, addr = sock.accept()
-    pianoUDP_Connected()
+    connection = True
     while 1:
         data_piano = client.recv(BUFFER_SIZE)
         data_send = data_piano.replace('\n','') # Removes the first line break
@@ -68,10 +80,21 @@ def main(argv):
     if (len(argv) != 3):
         print('Sintex error, this program needs 2 arguments: main.py <ip> <port>')
         sys.exit(2)
-    init_Services(argv[2])
+    #INITIALIZE UDP SERVER - PIANO
+    global connection
+    connection = False
+    udp_server = Thread(target=startUDP, args=(argv[2],))
+    udp_server.daemon = False
+    udp_server.start()
+    sleep(1)
+    #INITIALIZE TCP SERVER - HOLOLENS
+    tcp_server = Thread(target=setupTCP)
+    tcp_server.daemon = False
+    tcp_server.start()
+    #INITIALIZE RASPBERRY GUI
     init_GUI()
+    #INITIALIZE DRAW QR CODE
     drawQR(argv[1])
-    #root.protocol('WM_DELETE_WINDOW', doSomething)  # root is your root window
     root.mainloop()
 
 def init_GUI():
@@ -95,36 +118,10 @@ def init_GUI():
     info_label_piano.grid(row=1,column=1)
     info_label_server.grid(row=2, column=1)
     info_label_data.grid(row=3, column=1)
-
+    if connection == True:
+        pianoUDP_Connected()
+    else: pianoUDP_Disconnected()
     serverTCP_Disconnected()
-    pianoUDP_Disconnected()
-
-def init_Services(port):
-    udp_server = Thread(target=startUDP, args=(port,))
-    udp_server.daemon = False
-    udp_server.start()
-    sleep(1)
-    tcp_server = Thread(target=setupTCP)
-    tcp_server.daemon = False
-    tcp_server.start()
-
-def update_label_Info(msg):
-    label_0.configure(text=msg)
-
-def update_label_Data(msg):
-    info_label_data.configure(text=msg)
-
-def serverTCP_Connected():
-    info_label_server.configure(text="Connected",fg = "green")
-
-def serverTCP_Disconnected():
-    info_label_server.configure(text="Disconnected", fg="red")
-
-def pianoUDP_Connected():
-    info_label_piano.configure(text="Connected", fg="green")
-
-def pianoUDP_Disconnected():
-    info_label_piano.configure(text="Disconnected", fg="red")
 
 if __name__== "__main__":
     main(sys.argv)
