@@ -77,27 +77,28 @@ def startUDP(port):
         update_label_Data(data_send)
 
 def main(argv):
-    if (len(argv) != 3):
-        print('Sintex error, this program needs 2 arguments: main.py <ip> <port>')
-        sys.exit(2)
+	if (len(argv) != 3):
+		print('Sintex error, this program needs 2 arguments: main.py <ip> <port>')
+		sys.exit(2)
     #INITIALIZE UDP SERVER - PIANO
-    global connection
-    connection = False
-    udp_server = Thread(target=startUDP, args=(argv[2],))
-    udp_server.daemon = False
-    udp_server.start()
-    sleep(1)
+	global connection
+	connection = False
+	udp_server = Thread(target=startUDP, args=(argv[2],))
+	udp_server.daemon = False
+	udp_server.start()
+	sleep(0.5)
     #INITIALIZE TCP SERVER - HOLOLENS
-    tcp_server = Thread(target=setupTCP)
-    tcp_server.daemon = False
-    tcp_server.start()
+	tcp_server = Thread(target=setupTCP)
+	tcp_server.daemon = False
+	tcp_server.start()
+	sleep(0.5)
     #INITIALIZE RASPBERRY GUI
-    init_GUI()
+	gui = Thread(target=init_GUI, args=(argv[1],))
+	gui.daemon = False
+	gui.start()
     #INITIALIZE DRAW QR CODE
-    drawQR(argv[1])
-    root.mainloop()
 
-def init_GUI():
+def init_GUI(code):
     global root
     global info_label_server,info_label_piano,label_0,info_label_data
     root = Tk()
@@ -122,6 +123,7 @@ def init_GUI():
         pianoUDP_Connected()
     else: pianoUDP_Disconnected()
     serverTCP_Disconnected()
+    drawQR(code)
 
 if __name__== "__main__":
     main(sys.argv)
