@@ -11,11 +11,6 @@ from time import *
 
 TCP_PORT = 8000
 BUFFER_SIZE = 16  # Normally 1024, but fast response is needed
-def update_label_Info(msg):
-    label_0.configure(text=msg)
-
-def update_label_Data(msg):
-    info_label_data.configure(text=msg)
 
 def serverTCP_Connected():
     info_label_server.configure(text="Connected",fg = "green")
@@ -23,14 +18,9 @@ def serverTCP_Connected():
 def serverTCP_Disconnected():
     info_label_server.configure(text="Disconnected", fg="red")
 
-def pianoUDP_Connected():
-    info_label_piano.configure(text="Connected", fg="green")
-
-def pianoUDP_Disconnected():
-    info_label_piano.configure(text="Disconnected", fg="red")
 
 def drawQR(code):
-    url = pyqrcode.create(code)
+    url = pyqrcode.create(code) 
     url.png('qr.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
     img = PhotoImage(file="qr.png")
     panel = Label(root, image=img)
@@ -95,28 +85,20 @@ def main(argv):
     #INITIALIZE DRAW QR CODE
 
 def init_GUI(code):
-    global root
-    global info_label_server,info_label_piano,label_0,info_label_data
-    root = Tk()
-    label_0 = Label(root, text="Run MagicPiano \n and Scan the QR code")
-    label_1 = Label(root, text="Info Piano: ")
-    label_2 = Label(root, text="Info Hololens Server: ")
-    label_3 = Label(root, text="Data Stream: ")
-
-    info_label_piano = Label(root, text="")
-    info_label_server = Label(root, text="")
-    info_label_data = Label(root, text="")
-
-    label_0.grid(row=0,column = 1)
-    label_1.grid(row=1,column = 0,sticky =W)
-    label_2.grid(row=2,column = 0,sticky =W)
-    label_3.grid(row=3,column = 0,sticky =W)
-
-    info_label_piano.grid(row=1,column=1)
-    info_label_server.grid(row=2, column=1)
-    info_label_data.grid(row=3, column=1)
-    serverTCP_Disconnected()
-    drawQR(code)
+	global root
+	global info_label_server,label_0,label_2
+	root = Tk()
+	root.title("Server")
+	label_0 = Label(root, text="Run the application \n and Scan the QR code")
+	label_2 = Label(root, text="Connection status:")
+	
+	info_label_server = Label(root, text="")
+	label_0.grid(row=0,column = 1)
+	label_2.grid(row=2,column = 0,sticky =W)
+	
+	info_label_server.grid(row=2, column=1)
+	serverTCP_Disconnected()
+	drawQR(code)
 
 if __name__== "__main__":
     main(sys.argv)
