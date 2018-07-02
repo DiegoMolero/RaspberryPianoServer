@@ -1,5 +1,5 @@
 #!/bin/bash
-python -m pip install -r requirements.txt
+sudo python -m pip install -r requirements.txt
 OUTPUT="$(amidi -l)" || sudo apt-get install amidi
 if [[ $OUTPUT=*"MIDI"* ]]; then
         LOCAL_PORT="$(shuf -i 2000-2999 -n 1)"	#For Local Input
